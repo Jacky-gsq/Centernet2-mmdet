@@ -23,7 +23,15 @@ model = dict(
         num_classes=80,
         in_channel=256,
         num_features=5,
+        loss_center_heatmap=dict(
+            type='BinaryHeatmapFocalLoss', 
+            loss_weight=0.5),
+        # loss_center_heatmap=dict(
+        #     type='BinaryHeatmapFocalLoss', 
+        #     loss_weight=0.5),
         ),
+        
+
     roi_head=dict(
         type='CascadeRoIHead',
         num_stages=3,
