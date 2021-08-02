@@ -398,20 +398,6 @@ class CustomCenterNetHead(BaseDenseHead, BBoxTestMixin):
         num_pos_avg = max(total_num_pos / num_gpus, 1.0)
 
         losses = {}
-        # if not self.only_proposal:
-        #     pos_loss, neg_loss = heatmap_focal_loss_jit(
-        #         logits_pred, flattened_hms, pos_inds, labels,
-        #         alpha=self.hm_focal_alpha, 
-        #         beta=self.hm_focal_beta, 
-        #         gamma=self.loss_gamma, 
-        #         reduction='sum',
-        #         sigmoid_clamp=self.sigmoid_clamp,
-        #         ignore_high_fp=self.ignore_high_fp,
-        #     )
-        #     pos_loss = self.pos_weight * pos_loss / num_pos_avg
-        #     neg_loss = self.neg_weight * neg_loss / num_pos_avg
-        #     losses['loss_centernet_pos'] = pos_loss
-        #     losses['loss_centernet_neg'] = neg_loss
         
         reg_inds = torch.nonzero(reg_targets.max(dim=1)[0] >= 0).squeeze(1)
         reg_pred = reg_pred[reg_inds]
